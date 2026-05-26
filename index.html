@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="si">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Vesak 2026 | 3D Experience</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --deep-dark: #020617;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1e1b4b 0%, var(--deep-dark) 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 500px;
+            background-color: transparent;
+        }
+
+        .cyber-btn {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            background: linear-gradient(45deg, #00f2ff, #0066ff);
+            color: white;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.8);
+            z-index: 10;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Footer Style */
+        .footer-text {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .dev-name {
+            color: var(--neon-blue);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mb-4">
+                <h1 class="display-4 fw-bold"> Vesak <span style="color: var(--neon-blue);">2026</span></h1>
+            </div>
+
+            <div class="col-lg-9 position-relative">
+                <div class="glass-card">
+
+                    <div id="loading-overlay">
+                        <div class="spinner-border text-info" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span class="ms-3">Please wait...</span>
+                    </div>
+
+                    <model-viewer id="mutti-viewer" src="models/test.glb" ar ar-modes="webxr scene-viewer quick-look"
+                        camera-controls auto-rotate auto-rotate-delay="0" rotation-speed="20deg" shadow-intensity="1"
+                        camera-orbit="auto auto auto" interaction-prompt="auto">
+
+                        <button slot="ar-button"
+                            class="cyber-btn position-absolute bottom-0 start-50 translate-middle-x mb-4">
+                            ✨ VIEW IN AR
+                        </button>
+
+                    </model-viewer>
+                </div>
+
+                <div class="text-center">
+                    <p class="footer-text">Developed by <span class="dev-name">Sankalpa Lokuliyanage</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modelViewer = document.querySelector('#mutti-viewer');
+        const loadingOverlay = document.querySelector('#loading-overlay');
+
+        modelViewer.addEventListener('load', () => {
+            loadingOverlay.classList.add('hidden');
+            // Force rotation on load
+            modelViewer.autoRotate = true;
+            console.log("Model loaded successfully!");
+        });
+
+        modelViewer.addEventListener('error', (error) => {
+            console.error("Error loading model:", error);
+            loadingOverlay.innerHTML = "Error loading 3D model. Please check the file path.";
+        });
+    </script>
+
+</body>
+
+</html>
