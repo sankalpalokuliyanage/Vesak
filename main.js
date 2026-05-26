@@ -31,7 +31,7 @@ let vesakModel;
 const loader = new GLTFLoader();
 
 // ඔබගේ glb ෆයිල් එකේ නම මෙතනට දෙන්න
-loader.load('models/test.glb', (gltf) => {
+loader.load('models/lotus.glb', (gltf) => {
     vesakModel = gltf.scene;
 
     // මධ්‍යගත කිරීම (Centering)
